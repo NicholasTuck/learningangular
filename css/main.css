@@ -21,3 +21,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+#garageWrapper>div {
+    /*float: left;*/
+    margin-right: 15px;
+}
+
+#selectedCarDetails{
+    margin-left: 10px;
+}
+
+.logArea {
+    font-size: .7em;
+}

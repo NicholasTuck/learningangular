@@ -1,30 +1,221 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/bootstrap-3.1.1.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap-3.1.1.min.css">
 
-        <script src="app/requireConfig.js"></script>
-        <script data-main="app/main.js" src="app/vendor/require-2.1.11.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <!--<script src="app/requireConfig.js"></script>-->
+    <!--<script data-main="app/main.js" src="app/vendor/require-2.1.11.min.js"></script>-->
+    <script src="app/vendor/angularjs-1.2.0.min.js"></script>
+    <script src="app/vendor/lodash-2.4.1.min.js"></script>
+    <script src="app/vendor/jquery-1.10.2.min.js"></script>
+    <script src="app/main.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-        <h1>Garage Angular <small>Learning Project</small></h1>
-        <section id="main"></section>
+<h1>Garage Angular
+    <small>Learning Project</small>
+</h1>
 
-    </body>
+
+
+
+<section id="main" ng-app="garageApp">
+    <div id="garageWrapper">
+
+        <div class="container-fluid" ng-controller="appController as appCtrl">
+
+            <div class="row">
+                <div class="col-sm-3" id="addCar">
+                    <div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Add Car</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <div>
+
+                                        <fieldset>
+                                            <form action="" method="" class="form-horizontal form-compact carForm" role="form" ng-submit="appCtrl.addCar()">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label input-sm">Id</label>
+
+                                                    <div class="col-sm-10">
+                                                        <p class="form-control-static input-sm">{{appCtrl.car.id}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label input-sm">Make</label>
+
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control input-sm" name="make"
+                                                               placeholder="Example: Nissan" ng-model="appCtrl.car.make">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label input-sm">Model</label>
+
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control input-sm" name="model"
+                                                               placeholder="Example: Altima" ng-model="appCtrl.car.model">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label input-sm">Engine Type</label>
+
+                                                    <div class="col-sm-10">
+                                                        <select name="engineType" class="form-control" ng-model="appCtrl.car.engineType" ng-options="engineType for engineType in appCtrl.engineTypes">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input class="input-sm" type="checkbox" name="hasBrakes" ng-model="appCtrl.car.hasBrakes">Has Brakes
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button type="submit"
+                                                                class="btn btn-primary saveButton input-sm">Save
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </fieldset>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2" id="removeCar">
+                    <div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Remove Car</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="removeCarSelection">
+                                    <a href="#" class="list-group-item carItem" ng-class="{active:(appCtrl.carToRemove === car)}" ng-click="appCtrl.selectCarToRemove(car)" ng-repeat="car in appCtrl.cars">{{car.id}} - {{car.make}} {{car.model}}</a>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary btn-sm removeButton"
+                                            style="margin-top: 7px;" ng-disabled="!appCtrl.carToRemove" ng-click="appCtrl.removeCar()">Remove Car
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7" id="garageEditor">
+                    <div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Garage Editor</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div id="carCollection" class="list-group pull-left">
+                                    <a href="#" class="list-group-item carItem" ng-repeat="car in appCtrl.cars">{{car.id + ' - ' + car.make + " " + car.model}}</a>
+                                </div>
+                                <div id="selectedCarDetails" class="pull-left">
+                                    <div>
+                                        <div>
+
+                                            Select a car from the list!
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5" id="garageBrowser">
+                    <div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Garage Browser</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div id="carCollection" class="list-group pull-left">
+                                    <a href="#" class="list-group-item carItem" ng-repeat="car in appCtrl.cars">{{car.id + ' - ' + car.make + " " + car.model}}</a>
+                                </div>
+                                <div id="selectedCarDetails" class="pull-left">
+                                    <div>
+                                        <div>
+                                            Make: {{appCtrl.car.make}} <br />
+                                            Model: {{appCtrl.car.model}} <br />
+                                            Engine Type: {{appCtrl.car.engineType}} <br />
+                                            Has Brakes: {{appCtrl.car.hasBrakes}} <br />
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7" id="log">
+                    <div>
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Log</h3>
+                            </div>
+                            <div class="panel-body">
+                                <textarea class="form-control logArea" rows="15" readonly=""></textarea>
+
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-primary btn-sm clearButton"
+                                            style="margin-top: 7px;">Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
 </html>

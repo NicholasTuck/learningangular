@@ -17,9 +17,9 @@ var require = {
 //            deps: ['lodash', 'jquery']
 //            exports: 'Backbone'
 //        },
-        backboneLocalStorage: {
-            deps: ['backbone']
-        },
+//        backboneLocalStorage: {
+//            deps: ['backbone']
+//        },
         lodash: {
             exports: '_'
         },
