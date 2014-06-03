@@ -45,77 +45,22 @@
         <div class="container-fluid" ng-controller="appController as appCtrl">
 
             <div class="row">
+
                 <div class="col-sm-3" id="addCar">
-                    <div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Add Car</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div>
-                                    <div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add Car</h3>
+                        </div>
+                        <div class="panel-body">
+                            <car-form car="appCtrl.car" engine-types="appCtrl.engineTypes"></car-form>
+                            <car-form car="appCtrl.cars[1]" engine-types="appCtrl.engineTypes"></car-form>
+                            <car-form car="appCtrl.cars[2]" engine-types="appCtrl.engineTypes"></car-form>
 
-                                        <fieldset>
-                                            <form action="" method="" class="form-horizontal form-compact carForm" role="form" ng-submit="appCtrl.addCar()">
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label input-sm">Id</label>
-
-                                                    <div class="col-sm-10">
-                                                        <p class="form-control-static input-sm">{{appCtrl.car.id}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label input-sm">Make</label>
-
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control input-sm" name="make"
-                                                               placeholder="Example: Nissan" ng-model="appCtrl.car.make">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label input-sm">Model</label>
-
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control input-sm" name="model"
-                                                               placeholder="Example: Altima" ng-model="appCtrl.car.model">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label input-sm">Engine Type</label>
-
-                                                    <div class="col-sm-10">
-                                                        <select name="engineType" class="form-control" ng-model="appCtrl.car.engineType" ng-options="engineType for engineType in appCtrl.engineTypes">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-offset-2 col-sm-10">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input class="input-sm" type="checkbox" name="hasBrakes" ng-model="appCtrl.car.hasBrakes">Has Brakes
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit"
-                                                                class="btn btn-primary saveButton input-sm">Save
-                                                        </button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-                                        </fieldset>
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-sm-2" id="removeCar">
                     <div>
                         <div class="panel panel-primary">
