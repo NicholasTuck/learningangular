@@ -20,11 +20,34 @@
     <link rel="stylesheet" href="css/bootstrap-3.1.1.min.css">
 
     <!--<script src="app/requireConfig.js"></script>-->
-    <!--<script data-main="app/main.js" src="app/vendor/require-2.1.11.min.js"></script>-->
-    <script src="app/vendor/angularjs-1.2.0.min.js"></script>
-    <script src="app/vendor/lodash-2.4.1.min.js"></script>
-    <script src="app/vendor/jquery-1.10.2.min.js"></script>
-    <script src="app/main.js"></script>
+    <!--<script data-main="app/controller.js" src="app/vendor/require-2.1.11.min.js"></script>-->
+    <!--<script src="app/vendor/angularjs-1.2.0.min.js"></script>-->
+    <!--<script src="app/vendor/lodash-2.4.1.min.js"></script>-->
+    <!--<script src="app/vendor/jquery-1.10.2.min.js"></script>-->
+    <script src="app/vendor/Cesium/Cesium.js"></script>
+    <!--<script src="app/controller.js"></script>-->
+
+    <style>
+        @import url(app/vendor/Cesium/Widgets/widgets.css);
+        /*#cesium-container {*/
+            /*position: absolute;*/
+            /*top: 0;*/
+            /*left: 0;*/
+            /*height: 100%;*/
+            /*width: 100%;*/
+            /*margin: 0;*/
+            /*overflow: hidden;*/
+            /*padding: 0;*/
+            /*font-family: sans-serif;*/
+        /*}*/
+
+        /*body {*/
+            /*padding: 0;*/
+            /*margin: 0;*/
+            /*overflow: hidden;*/
+        /*}*/
+    </style>
+
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -39,26 +62,26 @@
 
 
 
-<section id="main" ng-app="garageApp">
+<section id="main">
     <div id="garageWrapper">
 
         <div class="container-fluid" ng-controller="appController as appCtrl">
 
             <div class="row">
 
-                <div class="col-sm-3" id="addCar">
+                <div class="col-sm-3" id="addCar" ng-controller="addController as ac">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Add Car</h3>
                         </div>
                         <div class="panel-body">
-                            <car-form car="appCtrl.car" engine-types="appCtrl.engineTypes"></car-form>
+                            <car-form car="ac.car" engine-types="appCtrl.engineTypes"></car-form>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="col-sm-2" id="removeCar">
+                <div class="col-sm-2" id="removeCar" ng-controller="removeController as rc">
                     <div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -66,11 +89,16 @@
                             </div>
                             <div class="panel-body">
                                 <div class="removeCarSelection">
-                                    <a href="#" class="list-group-item carItem" ng-class="{active:(appCtrl.carToRemove === car)}" ng-click="appCtrl.selectCarToRemove(car)" ng-repeat="car in appCtrl.cars">{{car.id}} - {{car.make}} {{car.model}}</a>
+                                    <a href="#" class="list-group-item carItem"
+                                       ng-class="{active:(rc.getSelectedCarId() === car.id)}"
+                                       ng-click="rc.setSelectedCar(car)"
+                                       ng-repeat="car in appCtrl.cars">{{car.id}} - {{car.make}} {{car.model}}</a>
                                 </div>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-primary btn-sm removeButton"
-                                            style="margin-top: 7px;" ng-disabled="!appCtrl.carToRemove" ng-click="appCtrl.removeCar()">Remove Car
+                                            style="margin-top: 7px;"
+                                            ng-diabled="!rc.getSelectedCar()"
+                                            ng-click="rc.removeSelectedCar()">Remove Car
                                     </button>
                                 </div>
                             </div>
@@ -86,12 +114,14 @@
                             <div class="panel-body">
 
                                 <div id="carCollection" class="list-group pull-left">
-                                    <a href="#" class="list-group-item carItem" ng-repeat="car in appCtrl.cars">{{car.id + ' - ' + car.make + " " + car.model}}</a>
+                                    <a href="#" class="list-group-item carItem"
+                                       ng-repeat="car in appCtrl.cars">
+                                        {{car.id + ' - ' + car.make + " " + car.model}}
+                                    </a>
                                 </div>
                                 <div id="selectedCarDetails" class="pull-left">
                                     <div>
                                         <div>
-
                                             Select a car from the list!
                                         </div>
                                     </div>
@@ -104,7 +134,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-5" id="garageBrowser">
+                <div class="col-sm-5" id="garageBrowser" ng-controller="browserController as bc">
                     <div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -112,20 +142,22 @@
                             </div>
                             <div class="panel-body">
 
-                                <div id="carCollection" class="list-group pull-left">
-                                    <a href="#" class="list-group-item carItem" ng-repeat="car in appCtrl.cars">{{car.id + ' - ' + car.make + " " + car.model}}</a>
+                                <div id="carCollectionBrowse" class="list-group pull-left">
+                                    <a href="#" class="list-group-item carItem"
+                                       ng-repeat="car in appCtrl.cars"
+                                       ng-click="bc.setSelectedCar(car)">
+                                        {{car.id + ' - ' + car.make + " " + car.model}}
+                                    </a>
                                 </div>
-                                <div id="selectedCarDetails" class="pull-left">
+                                <div id="selectedCarDetailsBrowse" class="pull-left">
                                     <div>
                                         <div>
-                                            Make: {{appCtrl.car.make}} <br />
-                                            Model: {{appCtrl.car.model}} <br />
-                                            Engine Type: {{appCtrl.car.engineType}} <br />
-                                            Has Brakes: {{appCtrl.car.hasBrakes}} <br />
-
-
-
-
+                                            Make: {{bc.selectedCar.make}} <br />
+                                            Model: {{bc.selectedCar.model}} <br />
+                                            Engine Type: {{bc.selectedCar.engineType}} <br />
+                                            Has Brakes: {{bc.selectedCar.hasBrakes}} <br />
+                                            Longitude: {{bc.selectedCar.lon}} <br />
+                                            Latitude: {{bc.selectedCar.lat}} <br />
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +166,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7" id="log">
+                <div class="col-sm-7" id="cesiumView" ng-controller="cesiumController as cc">
+                    <div>
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Cesium</h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div id="cesiumContainer" ng-init="initCesium()">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: none;" class="col-sm-7" id="log">
                     <div>
 
                         <div class="panel panel-primary">
@@ -158,6 +207,7 @@
     </div>
 </section>
 
+<script data-main="app/main" src="app/vendor/require-2.1.11.min.js"></script>
 
 </body>
 </html>

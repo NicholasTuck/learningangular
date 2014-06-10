@@ -27,10 +27,15 @@
     margin-right: 15px;
 }
 
-#selectedCarDetails{
+#selectedCarDetails, #selectedCarDetailsBrowse {
     margin-left: 10px;
 }
 
 .logArea {
     font-size: .7em;
+}
+
+#cesiumContainer {
+
+    height: 480px;
 }
