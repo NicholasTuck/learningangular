@@ -25,16 +25,9 @@ define(['app', 'underscore'], function(app, _){
             return cars;
          },
 
-         removeCar: function (carToRemove) {
-         //   console.log('Car to remove: ' + JSON.stringify(carToRemove));
-            cars = _.without(cars, carToRemove);
-         //   console.log(JSON.stringify(cars));
-            carToRemove = null;
-         },
-
          addCar: function (car) {
             cars.push(car);
-            car.id = cars.length;
+            car.id = cars.length - 1;
          }
 
       }

@@ -81,29 +81,8 @@
                 </div>
 
 
-                <div class="col-sm-2" id="removeCar" ng-controller="removeController as rc">
-                    <div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Remove Car</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="removeCarSelection">
-                                    <a href="#" class="list-group-item carItem"
-                                       ng-class="{active:(rc.getSelectedCarId() === car.id)}"
-                                       ng-click="rc.setSelectedCar(car)"
-                                       ng-repeat="car in appCtrl.cars">{{car.id}} - {{car.make}} {{car.model}}</a>
-                                </div>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary btn-sm removeButton"
-                                            style="margin-top: 7px;"
-                                            ng-diabled="!rc.getSelectedCar()"
-                                            ng-click="rc.removeSelectedCar()">Remove Car
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-2" id="removeCar" >
+                    <remove-car-panel></remove-car-panel>
                 </div>
 
                 <div class="col-sm-7" id="garageEditor" ng-controller="editorController as editorCtrl">
@@ -121,9 +100,7 @@
                                     </a>
                                 </div>
                                 <div id="selectedCarDetailsEditor" class="pull-left">
-                                    <div>
-                                        <car-form car="editorCtrl.selectedCar" engine-types="appCtrl.engineTypes"></car-form>
-                                    </div>
+                                    <car-form car="editorCtrl.selectedCar" engine-types="appCtrl.engineTypes"></car-form>
                                 </div>
                             </div>
                         </div>

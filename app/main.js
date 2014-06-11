@@ -42,7 +42,6 @@ require([
       'controller',
       'browsercontroller',
       'addcontroller',
-      'removecontroller',
       'cesiumcontroller',
       'editorcontroller',
       'directives'

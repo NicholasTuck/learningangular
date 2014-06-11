@@ -36,6 +36,9 @@
 }
 
 #cesiumContainer {
-
     height: 480px;
+}
+
+#carCollectionEditor{
+    margin-left: 10px;
 }

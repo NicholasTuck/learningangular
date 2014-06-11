@@ -1,0 +1,6 @@
+<a href="#" class="list-group-item carItem"
+   ng-repeat="car in cars"
+   ng-class="{active:(selectedCar === car)}"
+   ng-click="carSelected(car)">
+    {{car.id}} - {{car.make}} {{car.model}}
+</a>
