@@ -105,28 +105,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7" id="garageEditor">
+
+                <div class="col-sm-7" id="garageEditor" ng-controller="editorController as editorCtrl">
                     <div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Garage Editor</h3>
                             </div>
                             <div class="panel-body">
-
-                                <div id="carCollection" class="list-group pull-left">
+                                <div id="carCollectionEditor" class="list-group pull-left">
                                     <a href="#" class="list-group-item carItem"
-                                       ng-repeat="car in appCtrl.cars">
+                                       ng-repeat="car in appCtrl.cars"
+                                       ng-click="editorCtrl.setSelectedCar(car)">
                                         {{car.id + ' - ' + car.make + " " + car.model}}
                                     </a>
                                 </div>
-                                <div id="selectedCarDetails" class="pull-left">
+                                <div id="selectedCarDetailsEditor" class="pull-left">
                                     <div>
-                                        <div>
-                                            Select a car from the list!
-                                        </div>
+                                        <car-form car="editorCtrl.selectedCar" engine-types="appCtrl.engineTypes"></car-form>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -141,7 +139,6 @@
                                 <h3 class="panel-title">Garage Browser</h3>
                             </div>
                             <div class="panel-body">
-
                                 <div id="carCollectionBrowse" class="list-group pull-left">
                                     <a href="#" class="list-group-item carItem"
                                        ng-repeat="car in appCtrl.cars"

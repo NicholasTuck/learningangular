@@ -44,6 +44,7 @@ require([
       'addcontroller',
       'removecontroller',
       'cesiumcontroller',
+      'editorcontroller',
       'directives'
    ], function(angular){
       angular.bootstrap(document, ['garageApp']);
