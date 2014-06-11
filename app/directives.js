@@ -9,7 +9,8 @@ define(['app', 'garageStorage'], function(app){
          templateUrl: 'app/car/carForm.html',
          scope: {
             car: '=',
-            engineTypes: '='
+            engineTypes: '=',
+            disabled: '@'
          },
          controllerAs: 'ctrl',
          controller: function ($scope, $rootScope) {
@@ -35,6 +36,30 @@ define(['app', 'garageStorage'], function(app){
                 $scope.carSelected = function(car) {
                     $scope.selectedCar = car;
                 };
+
+            }
+        }
+    }]);
+
+    app.directive('garageBrowser', [function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'app/browser/garageBrowser.html',
+            scope: {
+                disabled: '@'
+            },
+            controller: function ($scope, garageStorage) {
+                $scope.cars = garageStorage.getAllCars();
+
+                $scope.initializeSelectedCar = function() {
+                    $scope.selectedCar = ($scope.cars.length > 0 ? $scope.cars[0] : null);
+                };
+
+                $scope.setSelectedCar = function(car) {
+                    $scope.selectedCar = car;
+                };
+
+                $scope.panelTitle = ($scope.disabled ? "Garage Browser" : "Garage Editor");
 
             }
         }

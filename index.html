@@ -69,13 +69,13 @@
 
             <div class="row">
 
-                <div class="col-sm-3" id="addCar" ng-controller="addController as ac">
+                <div class="col-sm-3" id="addCar" ng-controller="addController as addCtrl">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Add Car</h3>
                         </div>
                         <div class="panel-body">
-                            <car-form car="ac.car" engine-types="appCtrl.engineTypes"></car-form>
+                            <car-form car="addCtrl.car" engine-types="appCtrl.engineTypes"></car-form>
                         </div>
                     </div>
                 </div>
@@ -86,60 +86,16 @@
                 </div>
 
                 <div class="col-sm-7" id="garageEditor" ng-controller="editorController as editorCtrl">
-                    <div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Garage Editor</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="carCollectionEditor" class="list-group pull-left">
-                                    <a href="#" class="list-group-item carItem"
-                                       ng-repeat="car in appCtrl.cars"
-                                       ng-click="editorCtrl.setSelectedCar(car)">
-                                        {{car.id + ' - ' + car.make + " " + car.model}}
-                                    </a>
-                                </div>
-                                <div id="selectedCarDetailsEditor" class="pull-left">
-                                    <car-form car="editorCtrl.selectedCar" engine-types="appCtrl.engineTypes"></car-form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <garage-browser></garage-browser>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-5" id="garageBrowser" ng-controller="browserController as bc">
-                    <div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Garage Browser</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="carCollectionBrowse" class="list-group pull-left">
-                                    <a href="#" class="list-group-item carItem"
-                                       ng-repeat="car in appCtrl.cars"
-                                       ng-click="bc.setSelectedCar(car)">
-                                        {{car.id + ' - ' + car.make + " " + car.model}}
-                                    </a>
-                                </div>
-                                <div id="selectedCarDetailsBrowse" class="pull-left">
-                                    <div>
-                                        <div>
-                                            Make: {{bc.selectedCar.make}} <br />
-                                            Model: {{bc.selectedCar.model}} <br />
-                                            Engine Type: {{bc.selectedCar.engineType}} <br />
-                                            Has Brakes: {{bc.selectedCar.hasBrakes}} <br />
-                                            Longitude: {{bc.selectedCar.lon}} <br />
-                                            Latitude: {{bc.selectedCar.lat}} <br />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <garage-browser disabled="true"></garage-browser>
                 </div>
+
+
                 <div class="col-sm-7" id="cesiumView" ng-controller="cesiumController as cc">
                     <div>
 

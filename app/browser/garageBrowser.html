@@ -1,0 +1,13 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{panelTitle}}</h3>
+    </div>
+    <div class="panel-body">
+        <div id="carCollectionEditor" class="list-group pull-left">
+            <car-items-list cars="cars" selected-car="selectedCar"></car-items-list>
+        </div>
+        <div id="selectedCarDetailsEditor" class="pull-left">
+            <car-form car="selectedCar" engine-types="appCtrl.engineTypes" disabled="{{disabled}}"></car-form>
+        </div>
+    </div>
+</div>
