@@ -48,16 +48,20 @@ define(['app', 'garageStorage'], function(app){
             scope: {
                 disabled: '@'
             },
-            controller: function ($scope, garageStorage) {
+            controller: function ($scope, $rootScope, garageStorage) {
                 $scope.cars = garageStorage.getAllCars();
 
                 $scope.initializeSelectedCar = function() {
                     $scope.selectedCar = ($scope.cars.length > 0 ? $scope.cars[0] : null);
                 };
 
-                $scope.setSelectedCar = function(car) {
-                    $scope.selectedCar = car;
-                };
+                $scope.$watch('selectedCar', function(newCar, oldCar) {
+                    if(newCar) {
+                        if ($scope.disabled) {
+                            $rootScope.$broadcast('car:selected', $scope.selectedCar);
+                        }
+                    }
+                });
 
                 $scope.panelTitle = ($scope.disabled ? "Garage Browser" : "Garage Editor");
 
@@ -85,8 +89,6 @@ define(['app', 'garageStorage'], function(app){
 
                 $scope.removeSelectedCar = function() {
                     if($scope.selectedCar) {
-
-                        $rootScope.$broadcast('car:removed', $scope.selectedCar);   //todo should be able to remove
                         _.pull($scope.cars, $scope.selectedCar);
                         $scope.initializeSelectedCar();
                     }

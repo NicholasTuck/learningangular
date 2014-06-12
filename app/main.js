@@ -40,10 +40,8 @@ require([
       'app',
       'cesium',
       'controller',
-      'browsercontroller',
       'addcontroller',
       'cesiumcontroller',
-      'editorcontroller',
       'directives'
    ], function(angular){
       angular.bootstrap(document, ['garageApp']);
