@@ -1,6 +1,6 @@
 'use strict';
 
-define(['app', 'garageStorage'], function(app){
+define(['app', 'garageStorage', 'moment'], function(app, garageStorage, Moment){
 
    app.directive('carForm', [function(){
 
@@ -109,6 +109,46 @@ define(['app', 'garageStorage'], function(app){
                     garageStorage.addCar(car);
                     $scope.car = garageStorage.makeFakeCar();
                 });
+            }
+        }
+    }]);
+
+    app.directive('garageLog', [function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'app/log/garageLog.html',
+            controller:  function($scope, $rootScope, garageStorage, $element){
+                $scope.cars = garageStorage.getAllCars();
+                $scope.logMessages = [];
+
+                // todo is there a way to not find the new/removed ones by hand?!
+                $scope.$watchCollection('cars', function(newValues, oldValues){
+                    if(newValues.length > oldValues.length) {
+                        var newCar = _.difference(newValues, oldValues)[0];
+                        logCar('Added car', newCar);
+                    } else if (newValues.length < oldValues.length) {
+                        var removedCar = _.difference(oldValues, newValues)[0];
+                        logCar('Removed car', removedCar);
+                    }
+                }, false);
+
+                $scope.logText = function() {
+                    var fullLogText = "";
+                    _.each($scope.logMessages, function(message){
+                        fullLogText += message + "\n";
+                    });
+                    return fullLogText;
+                };
+
+                $scope.clearLog = function() {
+                    _.remove($scope.logMessages, function(item) { return true; });
+                };
+
+                function logCar(message, car){
+                    var moment = Moment();
+
+                    $scope.logMessages.push(moment.format() + " " + message + ": " + angular.toJson(car));
+                }
             }
         }
     }]);
