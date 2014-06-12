@@ -9,12 +9,13 @@ define(['app', 'garageStorage'], function(app){
          templateUrl: 'app/car/carForm.html',
          scope: {
             car: '=',
-            engineTypes: '=',
             disabled: '@'
          },
          controllerAs: 'ctrl',
-         controller: function ($scope, $rootScope) {
-            $scope.addCar = function () {
+         controller: function ($scope, $rootScope, garageStorage) {
+             $scope.engineTypes = garageStorage.getEngineTypes();
+
+             $scope.addCar = function () {
                $scope.$emit("car:saved", $scope.car);
 
                $rootScope.$broadcast('car:added', $scope.car);
@@ -83,9 +84,7 @@ define(['app', 'garageStorage'], function(app){
                     $scope.selectedCar = ($scope.cars.length > 0 ? $scope.cars[0] : null);
                 };
 
-
                 $scope.initializeSelectedCar();
-
 
                 $scope.removeSelectedCar = function() {
                     if($scope.selectedCar) {
@@ -93,6 +92,23 @@ define(['app', 'garageStorage'], function(app){
                         $scope.initializeSelectedCar();
                     }
                 };
+            }
+        }
+    }]);
+
+
+    app.directive('addCarPanel', [function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'app/add/addCarPanel.html',
+            controller:  function($scope, $rootScope, garageStorage){
+                $scope.cars = garageStorage.getAllCars();
+                $scope.car = garageStorage.makeFakeCar();
+
+                $scope.$on('car:saved', function(event, car){
+                    garageStorage.addCar(car);
+                    $scope.car = garageStorage.makeFakeCar();
+                });
             }
         }
     }]);

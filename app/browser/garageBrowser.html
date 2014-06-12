@@ -7,7 +7,7 @@
             <car-items-list cars="cars" selected-car="selectedCar"></car-items-list>
         </div>
         <div id="selectedCarDetailsEditor" class="pull-left" ng-show="selectedCar">
-            <car-form car="selectedCar" engine-types="appCtrl.engineTypes" disabled="{{disabled}}"></car-form>
+            <car-form car="selectedCar" disabled="{{disabled}}"></car-form>
         </div>
         <div ng-hide="selectedCar">
             Select a car from the list!

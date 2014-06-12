@@ -1,5 +1,5 @@
 <a href="#" class="list-group-item carItem"
-   ng-repeat="car in cars"
+   ng-repeat="car in cars | orderBy: id"
    ng-class="{active:(selectedCar === car)}"
    ng-click="carSelected(car)">
     {{car.id}} - {{car.make}} {{car.model}}

@@ -1,37 +1,45 @@
 'use strict';
 
-define(['app', 'underscore'], function(app, _){
+define(['app', 'underscore'], function (app, _) {
 
 
-   app.factory('garageStorage', function(){
+    app.factory('garageStorage', function () {
 
-      var engineTypes = ['Four Cylinder', 'Three Cylinder', 'Two Stroke Cycle', 'In-Line Cylinder'],
-         cars = [
-            {id: 0, make: "Ford", model: "F150", hasBrakes: true, engineType: engineTypes[1], lat: '25.7', lon: '-80.22'}
-         ];
+        var engineTypes = ['Four Cylinder', 'Three Cylinder', 'Two Stroke Cycle', 'In-Line Cylinder'],
+            cars = [];
 
-      return {
+        var carIdCount = 0;
 
-         getEngineTypes: function() {
-            return engineTypes;
-         },
+        var that = {
 
-         getCarById: function(id) {
-            var car = _.where(cars, {id: id});
-            return car;
-         },
+            getEngineTypes: function () {
+                return engineTypes;
+            },
 
-         getAllCars: function() {
-            return cars;
-         },
+            getCarById: function (id) {
+                return _.where(cars, {id: id});
+            },
 
-         addCar: function (car) {
-            cars.push(car);
-            car.id = cars.length - 1;
-         }
+            getAllCars: function () {
+                return cars;
+            },
 
-      }
+            addCar: function (car) {
+                cars.push(car);
+                car.id = carIdCount;
+                carIdCount++;
+            },
 
-   });
+            makeFakeCar: function () {
+                return {make: "Nissan", model: "Altima", hasBrakes: false, engineType: engineTypes[0], lon: -100.0, lat: 27.0};
+            }
+        };
 
-});
+        that.addCar(that.makeFakeCar());
+
+        return that;
+
+    });
+
+})
+;
