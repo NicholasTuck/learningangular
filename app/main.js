@@ -40,7 +40,6 @@ require([
       'app',
       'cesium',
       'controller',
-      'addcontroller',
       'cesiumcontroller',
       'directives'
    ], function(angular){
